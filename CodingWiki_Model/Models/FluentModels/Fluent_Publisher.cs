@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace CodingWiki_Model.Models
 {
-    public class SubCategory
+    public class Fluent_Publisher
     {
-        [Key]
-        public int SubCategory_Id { get; set; }
-        [Required]
-        [MaxLength(50)]
+        public int Publisher_Id { get; set; }
         public string Name { get; set; }
+        public string Location { get; set; }
+
+        //public List<Fluent_Book> Books { get; set; }
     }
 }
