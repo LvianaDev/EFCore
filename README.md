@@ -21,4 +21,4 @@ This is a simple CRUD (Create, Read, Update, Delete) project simulating a bookst
 
 1. **Clone the Repository:**
    ```bash
-   git clone 
+   git clone https://github.com/LvianaDev/EFCore/tree/master
