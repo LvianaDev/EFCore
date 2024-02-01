@@ -1,157 +1,66 @@
-﻿@* @* @* ﻿@model IEnumerable<CodingWiki_Model.Models.Book>
+﻿@model CodingWiki_Model.Models.BookDetail
+@{
+    var title = "Book Details";
+}
+<form method="post">
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Book_Id" />
+        <input type="hidden" asp-for="BookDetail_Id" />
+      
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row py-2">
+                <div class="col-4">
+                    <label asp-for="Book.Title"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Book.Title" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row py-2">
+                <div class="col-4">
+                    <label asp-for="NumberOfChapters"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="NumberOfChapters" class="form-control" />
+                    <span asp-validation-for="NumberOfChapters" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row py-2">
+                <div class="col-4">
+                    <label asp-for="NumberOfPages"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="NumberOfPages" class="form-control" />
+                    <span asp-validation-for="NumberOfPages" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row py-2">
+                <div class="col-4">
+                    <label asp-for="Weight"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Weight" class="form-control" />
+                    <span asp-validation-for="Weight" class="text-danger"></span>
+                </div>
+            </div>
 
-<br />
-<br />
-<div class="border p-4 bg-white">
-    <div class="row">
-        <div class="col-8">
-            <h2 class="text-info"> Book List</h2>
-        </div>
-        <div class=" col-2 ">
-            <a asp-action="PlayGround" class="btn btn-warning form-control">Play Ground</a>
-        </div>
-        <div class=" col-2 text-right">
-            <a asp-action="Upsert" class="btn btn-info form-control"> Create New </a>
+            <div class="form-group row py-2">
+                <div class="col-4 offset-4">
+                        <button type="submit" class="btn btn-primary form-control">Update</button>
+                </div>
+                <div class="col-4">
+                    <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                </div>
+            </div>
         </div>
     </div>
-    <br />
-    <div>
-        @if (Model.Count() > 0)
-        {
-            <table class="table table-striped border">
-                <tr class="table-secondary">
-                    <th>
-                        Title
-                    </th>
-                   <th>Price</th>
-                    <th>
-                        Publisher
-                    </th>
-                    <th>
-                        Authors
-                    </th>
-                    <th></th>
-                </tr>
-                @foreach (var item in Model)
-                {
-            <tr>
-                <td>
-                    @item.Title
-                </td>
-                <td>@item.Price.ToString("c")</td>
-                <td>
-                    @item.Publisher.Name
-                </td>
-                <td>
-                    @{ 
-                        var authors = "";
-                    }
-                    @foreach(var auth in item.BookAuthorMap)
-                    {
-                        authors += @auth.Author.FullName + ", ";
-                    }
-                    @authors.Trim().TrimEnd(',')
-                </td>
-                <td>
-                    <a class="btn btn-primary text-white" asp-action="Upsert" asp-route-Id="@item.BookId">
-                        Edit
-                    </a>
-                            <a class="btn btn-info text-white" asp-action="Details" asp-route-Id="@item.BookId">
-                        Details
-                    </a>
-                            <a class="btn btn-danger text-white" asp-action="Delete" asp-route-Id="@item.BookId">
-                        Delete
-                    </a>
-                            <a class="btn btn-success text-white" asp-action="ManageAuthors" asp-route-Id="@item.BookId">
-                        Authors
-                    </a>
+</form>
 
-                </td>
-            </tr>
-                }
-            </table>
-        }
-        else
-        {
-            <p>No publisher exists...</p>
-        }
-    </div>
-</div> *@﻿@model IEnumerable<CodingWiki_Model.Models.Book>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
 
-<br />
-<br />
-<div class="border p-4 bg-white">
-    <div class="row">
-        <div class="col-8">
-            <h2 class="text-info"> Book List</h2>
-        </div>
-        <div class=" col-2 ">
-            <a asp-action="PlayGround" class="btn btn-warning form-control">Play Ground</a>
-        </div>
-        <div class=" col-2 text-right">
-            <a asp-action="Upsert" class="btn btn-info form-control"> Create New </a>
-        </div>
-    </div>
-    <br />
-    <div>
-        @if (Model.Count() > 0)
-        {
-            <table class="table table-striped border">
-                <tr class="table-secondary">
-                    <th>
-                        Title
-                    </th>
-                   <th>Price</th>
-                    <th>
-                        Publisher
-                    </th>
-                    <th>
-                        Authors
-                    </th>
-                    <th></th>
-                </tr>
-                @foreach (var item in Model)
-                {
-            <tr>
-                <td>
-                    @item.Title
-                </td>
-                <td>@item.Price.ToString("c")</td>
-                <td>
-                    @item.Publisher.Name
-                </td>
-                <td>
-                    @{ 
-                        var authors = "";
-                    }
-                    @foreach(var auth in item.BookAuthorMap)
-                    {
-                        authors += @auth.Author.FullName + ", ";
-                    }
-                    @authors.Trim().TrimEnd(',')
-                </td>
-                <td>
-                    <a class="btn btn-primary text-white" asp-action="Upsert" asp-route-Id="@item.BookId">
-                        Edit
-                    </a>
-                            <a class="btn btn-info text-white" asp-action="Details" asp-route-Id="@item.BookId">
-                        Details
-                    </a>
-                            <a class="btn btn-danger text-white" asp-action="Delete" asp-route-Id="@item.BookId">
-                        Delete
-                    </a>
-                            <a class="btn btn-success text-white" asp-action="ManageAuthors" asp-route-Id="@item.BookId">
-                        Authors
-                    </a>
-
-                </td>
-            </tr>
-                }
-            </table>
-        }
-        else
-        {
-            <p>No publisher exists...</p>
-        }
-    </div>
-</div> *@ *@
+}
